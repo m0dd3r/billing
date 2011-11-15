@@ -13,10 +13,16 @@ Gem::Specification.new do |s|
   s.files = Dir["{app,lib,config}/**/*"] + ["MIT-LICENSE", "Rakefile", "Gemfile", "README.rdoc"]
   s.version = "0.0.1"
 
-  s.add_dependency "activesupport" , "3.0.7"
-  s.add_dependency "rails"         , "3.0.7"
-  s.add_development_dependency "rspec", "2.1.0"
-  s.add_development_dependency "rspec-rails", "2.1.0"
+  s.add_dependency "activesupport" , "~> 3.0.7"
+  s.add_dependency "rails"         , "~> 3.0.7"
+  s.add_development_dependency "rspec"
+  s.add_development_dependency "rspec-rails"
+  s.add_development_dependency "sqlite3"
+  s.add_development_dependency "capybara"
+  s.add_development_dependency "guard"
+  s.add_development_dependency "guard-rspec"
+  s.add_development_dependency "rb-fsevent"
+  s.add_development_dependency "growl_notify"
  
   s.files = `git ls-files`.split("\n")
   s.executables = `git ls-files`.split("\n").map{|f| f =~ /^bin\/(.*)/ ? $1 : nil}.compact
