@@ -15,8 +15,10 @@ Gem::Specification.new do |s|
 
   s.add_dependency "activesupport" , "~> 3.0.7"
   s.add_dependency "rails"         , "~> 3.0.7"
+  s.add_dependency "thor"
   s.add_development_dependency "rspec"
   s.add_development_dependency "rspec-rails"
+  s.add_development_dependency "cucumber-rails"
   s.add_development_dependency "sqlite3"
   s.add_development_dependency "capybara"
   s.add_development_dependency "guard"
