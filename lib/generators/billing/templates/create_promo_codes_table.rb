@@ -1,6 +1,6 @@
 class CreatePromoCodesTable < ActiveRecord::Migration
   def self.up
-    create_table :plans do |t|
+    create_table :promo_codes do |t|
       t.string :name
       t.text :description
       t.string :code
@@ -10,6 +10,6 @@ class CreatePromoCodesTable < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :plans
+    drop_table :promo_codes
   end
 end

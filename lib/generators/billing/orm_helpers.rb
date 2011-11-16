@@ -3,11 +3,8 @@ module Billing
     module OrmHelpers
       def model_contents
 <<-CONTENT
-  # Include default devise modules. Others available are:
-  # :token_authenticatable, :encryptable, :confirmable, :lockable, :timeoutable and :omniauthable
-  devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
-
+  # Include billing module, :billable
+  include :billable
 CONTENT
       end
 
