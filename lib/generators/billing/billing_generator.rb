@@ -15,10 +15,6 @@ module Billing
 
       class_option :routes, :desc => "Generate routes", :type => :boolean, :default => true
 
-      def add_billing_routes
-        # TODO add routes!
-        puts "No routes to add yet!!!"
-      end
     end
   end
 end

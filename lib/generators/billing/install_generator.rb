@@ -33,11 +33,19 @@ module Billing
         # billing generator run, make sure they get added at the beginning of this list, pushing
         # the existing templates down.  Once the generator gets an error that a migration
         # already exists, it stops.
-        %w(create_promo_codes create_plans).each do |migration|
+        %w(create_plan_limit_fields create_fields create_plans).each do |migration|
           migration_template "#{migration}_table.rb", "db/migrate/#{migration}_table.rb"
           sleep(1)
         end
       end
+
+#       def add_billing_routes
+#         route(<<-ROUTE)
+# namespace :billing do
+#     resources :plans
+#   end
+# ROUTE
+      # end
     end
   end
 end
