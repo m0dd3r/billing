@@ -1,0 +1,16 @@
+<h1>This is in the engine!</h1>
+<table>
+  <tr><th>Plan</th><th>Description</th><th>Price</th><th>Limit Field</th><th>Limit</th></tr>
+  <% @plans.each do |plan| %>
+    <tr>
+      <td><%= plan.name %></td>
+      <td><%= plan.description %></td>
+      <td><%= number_to_currency plan.price_per_month %></td>
+      <td><%= plan.plan_limit_fields.map(&:field_name).join(',') %></td>
+      <td><%= plan.plan_limit_fields.map(&:value).join(',') %></td>
+      <td><%= link_to("edit", edit_billing_plan_path(plan)) %></td>
+      <td><%= link_to("delete", plan, :method => :delete) %></td>
+    </tr>
+  <% end %>
+</table>
+<%= link_to("Create a new plan", new_billing_plan_path) %>
