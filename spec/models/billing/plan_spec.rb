@@ -12,10 +12,18 @@ module Billing
       it { should have_many(:fields).through(:limit_fields) }
     end
     
-    describe "should accept nested attributes for plan_limit_field" do
-      subject { Plan.create(:name => "name", :limit_fields_attributes => { "0" => { :field_name => field_name, :value => 5 } }) }
-      let(:field_name) { "field1" }
-      specify { subject.fields.map(&:name).should include field_name }
+    describe "accept nested attributes for plan_limit_fields" do
+      subject { Plan.create(:name => "name", 
+                            :limit_fields_attributes => {
+                              "0" => { 
+                                :field_name => field_names[0], 
+                                :value => 5 },
+                              "1" => {
+                                :field_name => field_names[1], 
+                                :value => 12 } 
+                              }) }
+      let(:field_names) { ["field1", "field2"] }
+      specify { (subject.fields.map(&:name) - field_names).should == []}
     end
 
     describe "Methods" do

@@ -24,8 +24,9 @@ module Billing
     end
 
     def destroy
-      # Plan.find_by_id(params[:id]).destroy
-      # redirect_to billing_plans_path  
+      Plan.find_by_id(params[:id]).destroy
+      flash[:notice] = "Plan deleted."
+      redirect_to billing_plans_path  
     end
 
     def show

@@ -10,6 +10,21 @@
       <%= render 'billing/limit_fields/limit_field', :f => plf %>
     <% end %>
   </ul>
-  <%= link_to "Add a limit", "#add", :id => "add-plan-limit" %>
+  <%= link_to "Add a limit", "#", :remote => true, :class=> "add-plan-limit" %>
   <%= f.submit "Save" %>
 <% end %>
+
+<script>
+function newLimitField(owner_name) {
+  var basic = "<%=escape_javascript(render :partial => "billing/limit_fields/limit_field",
+                                           :locals => {
+                                             :f => ActionView::Helpers::FormBuilder.new(
+                                               '__owner__[limit_fields_attributes][__index__]',
+                                               Billing::LimitField.new, self, {}, proc {})
+                                           })%>";
+  var index = new Date() * 1 + parseInt(Math.random()*100000);
+  while (basic.indexOf("__owner__") != -1) basic = basic.replace("__owner__", owner_name);
+  while (basic.indexOf("__index__") != -1) basic = basic.replace("__index__", index);
+  return basic;
+}
+</script>

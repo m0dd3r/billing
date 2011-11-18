@@ -41,10 +41,15 @@ Feature: Manage plans available to BB2 users
     And I should see "10"
     And there should be 1 plan
 
+  @javascript
   Scenario: Modify a plan's details
     Given there is a plan with the following attributes:
       | Name        | Description | Price | PlanLimitFieldNames | PlanLimitFieldValues |
       | Wicked Blue | a blue plan | 25.00 | users,storage       | 10,5                 |
+    And there are fields with the following attributes:
+      | name    |
+      | monkeys |
+
     And I am on the billing plans page
     When I follow "edit" 
     Then I should be sent to the edit billing plan page for "Wicked Blue"
@@ -54,9 +59,27 @@ Feature: Manage plans available to BB2 users
     When I fill out "Name" with "Super Wicked Blue"
     And I fill out "Description" with "AWWWWW YEAH!!!"
     And I fill out "Price per month" with "500.00"
+    And I fill out the 1st "Limit" with "50"
+    And I follow "Add a limit"
+    And I select "monkeys" from the 3rd list of Fields
+    And I fill out the 3rd "Limit" with "5"
     And I press Save
     Then I should be sent to the billing plan page for "Super Wicked Blue"
     And I should see "Super Wicked Blue"
     And I should see "AWWWWW YEAH!!!"
     And I should see "500.00"
-    
+    And I should see "users: 50"
+    And I should see "storage: 5"
+    And there should be 1 plan
+
+  Scenario: Delete a plan
+    Given there is a plan with the following attributes:
+      | Name        | Description | Price | PlanLimitFieldNames | PlanLimitFieldValues |
+      | Wicked Blue | a blue plan | 25.00 | users,storage       | 10,5                 |
+    And I am on the billing plans page
+    When I follow "delete"
+    Then I should be sent to the billing plans page
+    And I should see "Plan deleted."
+    And there should be 0 plans
+
+

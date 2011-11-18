@@ -61,8 +61,16 @@ When /^I select "([^"]*)" from the list of (.+)$/ do |option, list|
   page.select(option, :from => list.singularize)
 end
 
+When /^I select "([^"]*)" from the (.+)(st|nd|rd|th) list of (.+)$/ do |option, index, junk, list|
+  page.all("li")[index.to_i-1].select(option, :from => list.singularize)
+end
+
 When /^I fill out "([^"]*)" with "([^"]*)"$/ do |form_field, data|
   page.fill_in(form_field, :with => "#{data}")
+end
+
+When /^I fill out the (\d+)(st|nd|rd|th) "([^"]*)" with "([^"]*)"$/ do |index, junk, form_field, data|
+  page.all("li")[index.to_i-1].fill_in(form_field, :with => "#{data}")
 end
 
 When /^I press (.+)$/ do |button_name|

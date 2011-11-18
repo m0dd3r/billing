@@ -3,5 +3,6 @@
 <%= f.collection_select :field_id, Billing::Field.all, :id, :name %>
 <%= f.label :value, "Limit" %>
 <%= f.text_field :value %>
-<%= link_to "Remove", "#delete", :class => "delete-plan-limit" %>
+<%= f.hidden_field :_destroy %>
+<%= link_to "Remove", "#", :remote => true, :class => "delete-plan-limit" %>
 </li>
