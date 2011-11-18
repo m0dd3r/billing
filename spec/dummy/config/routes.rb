@@ -1,4 +1,11 @@
 Dummy::Application.routes.draw do
+
+  namespace :billing do
+    resources :plans
+    resources :billing_data
+  end
+
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
