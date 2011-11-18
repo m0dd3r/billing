@@ -22,8 +22,7 @@ module Billing
                                 :field_name => field_names[1], 
                                 :value => 12 } 
                               }) }
-      let(:field_names) { ["field1", "field2"] }
-      specify { (subject.fields.map(&:name) - field_names).should == []}
+      it_behaves_like "any limitable"
     end
 
     describe "Methods" do
