@@ -9,10 +9,13 @@ module Billing
     end
 
     describe "associations" do
-      it { should have_many(:fields).through(:plan_limit_fields) }
-      pending "should accept nested attributes for plan_limit_field" do
-        # plan = Plan.new(:name => "name", :plan_limit_field
-      end
+      it { should have_many(:fields).through(:limit_fields) }
+    end
+    
+    describe "should accept nested attributes for plan_limit_field" do
+      subject { Plan.create(:name => "name", :limit_fields_attributes => { "0" => { :field_name => field_name, :value => 5 } }) }
+      let(:field_name) { "field1" }
+      specify { subject.fields.map(&:name).should include field_name }
     end
 
     describe "Methods" do

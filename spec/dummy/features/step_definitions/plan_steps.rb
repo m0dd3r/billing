@@ -1,3 +1,22 @@
+#Table Transforms
+Transform /^table:Name,Description,Price,PlanLimitFieldNames,PlanLimitFieldValues$/ do |table|
+  table.hashes.map do |hash|
+    plan = Billing::Plan.create!({:name => hash["Name"],
+                                 :description => hash["Description"],
+                                 :price_per_month => hash["Price"]})
+    fields = Array.new
+    hash["PlanLimitFieldNames"].split(',').each do |field|
+      fields << Billing::Field.create!(:name => field)
+    end
+    limits = Array.new
+    hash["PlanLimitFieldValues"].split(',').each_with_index do |limit, i|
+      limits << plan.limit_fields.build(:field => fields[i], :value => limit)
+    end
+
+    { :plan => plan, :limits => limits }
+  end
+end
+
 # Givens
 Given /^there is a plan named (.+)$/ do |name|
   Billing::Plan.create!(:name => name)
@@ -9,28 +28,10 @@ Given /^there are fields with the following attributes:$/ do |table|
   end
 end
 
-Transform /^table:Name,Description,Price,PlanLimitFieldNames,PlanLimitFieldValues$/ do |table|
-  table.hashes.map do |hash|
-    plan = Billing::Plan.create!({:name => hash["Name"],
-                        :description => hash["Description"],
-                        :price_per_month => hash["Price"]})
-    fields = Array.new
-    hash["PlanLimitFieldNames"].split(',').each do |field|
-      fields << Billing::Field.create!(:name => field)
-    end
-    limits = Array.new
-    hash["PlanLimitFieldValues"].split(',').each_with_index do |limit, i|
-      limits << plan.plan_limit_fields.build(:field => fields[i], :value => limit)
-    end
-
-    { :plan => plan, :limits => limits }
-  end
-end
-
 Given /^there is a plan with the following attributes:$/ do |table|
   table.each do |group|
     plan = group[:plan]
-    associations = { :plan_limit_fields => group[:limits] }
+    associations = { :limit_fields => group[:limits] }
     plan.update_attributes(associations)
   end
 end
@@ -48,12 +49,16 @@ When /^I am on the (.+) page$/ do |page_name|
   visit(send spaced_page_to_path(page_name))
 end
 
+When /^I follow "([^"]*)" for the plan named "([^"]*)"$/ do |link_name|
+  click_link "#{link_name}"
+end
+
 When /^I follow "([^"]*)"$/ do |link_name|
   click_link "#{link_name}"
 end
 
 When /^I select "([^"]*)" from the list of (.+)$/ do |option, list|
-  page.select(option, :from => list)
+  page.select(option, :from => list.singularize)
 end
 
 When /^I fill out "([^"]*)" with "([^"]*)"$/ do |form_field, data|

@@ -1,0 +1,6 @@
+<h1><%= @plan.name %></h1>
+<p><%= @plan.description %></p>
+<p><%= number_to_currency @plan.price_per_month %></p>
+<% @plan.limit_fields.each do |lf| %>
+  <p><%= lf.field_name %>: <%= lf.value %></p>
+<% end %>

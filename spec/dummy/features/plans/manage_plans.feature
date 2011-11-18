@@ -21,7 +21,7 @@ Feature: Manage plans available to BB2 users
     Given there are no plans
     And there are fields with the following attributes:
       | name    |
-      | Users   |
+      | Monkeys |
       | Storage |
     And I am on the billing plans page
     When I follow "Create a new plan"
@@ -29,7 +29,7 @@ Feature: Manage plans available to BB2 users
     When I fill out "Name" with "Super Effing Blue"
     And I fill out "Description" with "A super effing blue plan for people who are super effing blue about their old CRM"
     And I fill out "Price per month" with "25.00"
-    And I select "Users" from the list of plan limit fields
+    And I select "Monkeys" from the list of Fields
     And I fill out "Limit" with "10"
     And I press Save
     Then I should be sent to the billing plan page for "Super Effing Blue"
@@ -37,7 +37,7 @@ Feature: Manage plans available to BB2 users
     And I should see "Super Effing Blue"
     And I should see "A super effing blue plan for people who are super effing blue about their old CRM"
     And I should see "$25.00"
-    And I should see "Users"
+    And I should see "Monkeys"
     And I should see "10"
     And there should be 1 plan
 
@@ -49,6 +49,8 @@ Feature: Manage plans available to BB2 users
     When I follow "edit" 
     Then I should be sent to the edit billing plan page for "Wicked Blue"
     And I should see "Name" with "Wicked Blue" in it
+    And I should see "Description" with "a blue plan" in it
+    And I should see "Price" with "25.00" in it
     When I fill out "Name" with "Super Wicked Blue"
     And I fill out "Description" with "AWWWWW YEAH!!!"
     And I fill out "Price per month" with "500.00"

@@ -1,0 +1,15 @@
+<%= form_for @plan do |f| %>
+  <%= f.label :name %>
+  <%= f.text_field :name %>
+  <%= f.label :description %>
+  <%= f.text_field :description %>
+  <%= f.label :price_per_month %>
+  <%= f.text_field :price_per_month, :value => number_with_precision(f.object.price_per_month, :precision => 2) %>
+  <ul id="plan-limit-list">
+    <%= f.fields_for :limit_fields do |plf| %>
+      <%= render 'billing/limit_fields/limit_field', :f => plf %>
+    <% end %>
+  </ul>
+  <%= link_to "Add a limit", "#add", :id => "add-plan-limit" %>
+  <%= f.submit "Save" %>
+<% end %>
