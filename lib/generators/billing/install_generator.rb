@@ -33,7 +33,7 @@ module Billing
         # billing generator run, make sure they get added at the beginning of this list, pushing
         # the existing templates down.  Once the generator gets an error that a migration
         # already exists, it stops.
-        %w(create_plan_limit_fields create_fields create_plans).each do |migration|
+        %w(create_billing_data create_limit_fields create_fields create_plans).each do |migration|
           migration_template "#{migration}_table.rb", "db/migrate/#{migration}_table.rb"
           sleep(1)
         end

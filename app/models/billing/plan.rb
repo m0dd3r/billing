@@ -1,9 +1,9 @@
 module Billing
   class Plan < ActiveRecord::Base
-    attr_accessible :name, :description, :price_per_month
-    has_many :plan_limit_fields
-    has_many :fields, :through => :plan_limit_fields
-    accepts_nested_attributes_for :fields
+    attr_accessible :name, :description, :price_per_month, :limit_fields_attributes
+    has_many :limit_fields, :as => :limitable
+    has_many :fields, :through => :limit_fields
+    accepts_nested_attributes_for :limit_fields
 
     def price_per_month=(ppm)
       ppm = ppm.to_i * 100

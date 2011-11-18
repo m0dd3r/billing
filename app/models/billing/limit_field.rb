@@ -1,7 +1,7 @@
 module Billing
-  class PlanLimitField < ActiveRecord::Base
-    attr_accessible :value, :field, :field_name
-    belongs_to :plan
+  class LimitField < ActiveRecord::Base
+    attr_accessible :value, :field, :field_name, :field_id
+    belongs_to :limitable, :polymorphic => true
     belongs_to :field
 
     def field_name=(name)

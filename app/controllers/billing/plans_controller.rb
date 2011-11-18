@@ -3,6 +3,7 @@ module Billing
     respond_to :html, :xml, :js, :json
 
     def create
+      puts params
       @plan = Plan.create!(params[:billing_plan])
       flash[:notice] = "New plan created!"
       respond_with @plan
@@ -10,6 +11,7 @@ module Billing
 
     def new
       @plan = Plan.new
+      @plan.limit_fields.build
     end
 
     def edit
