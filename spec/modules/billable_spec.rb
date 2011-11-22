@@ -1,7 +1,7 @@
 require 'billing/billable'
 
 class DummyAccountWithBillable
-  include Billing::Billable
+  include Billing::Billable::InstanceMethods
 end
 
 module Billing
