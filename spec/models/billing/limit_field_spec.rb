@@ -12,13 +12,13 @@ module Billing
 
     describe "methods" do
       subject { LimitField.new(:field => Field.new(:name => "asdf")) }
-        its(:field_name) { should == "asdf" }
-        describe "should set field_name with field_name=" do
-          before do
-            subject.field_name = "qwer"
-          end
-          its(:field_name) { should == "qwer" }
+      its(:field_name) { should == "asdf" }
+      describe "should set field_name with field_name=" do
+        before do
+          subject.field_name = "qwer"
         end
+        its(:field_name) { should == "qwer" }
+      end
     end
   end
 end

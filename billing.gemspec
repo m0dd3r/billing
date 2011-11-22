@@ -17,6 +17,7 @@ Gem::Specification.new do |s|
   s.add_dependency "rails"         , "~> 3.0.7"
   s.add_dependency "thor"
   s.add_dependency "jquery-rails"
+  s.add_development_dependency "simplecov"
   s.add_development_dependency "rspec"
   s.add_development_dependency "rspec-rails"
   s.add_development_dependency "shoulda-matchers"
